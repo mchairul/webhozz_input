@@ -1,7 +1,7 @@
 library webhozz_input;
 import 'package:flutter/material.dart';
 
-class WebhozzInput extends StatelessWidget {
+class WebhozzInput extends StatefulWidget {
   final String type;
   final Widget label;
   final Widget? prefixIcon;
@@ -10,7 +10,7 @@ class WebhozzInput extends StatelessWidget {
   final TextEditingController? controller;
   final String? Function(String?)? validator;
 
-  WebhozzInput({
+  const WebhozzInput({
     super.key,
     required this.type,
     required this.label,
@@ -21,6 +21,12 @@ class WebhozzInput extends StatelessWidget {
     required this.obscureText
   }) :  assert(type != '', 'Type Can Not Empty');
 
+  @override
+  State<WebhozzInput> createState() => _WebhozzInputState();
+}
+
+class _WebhozzInputState extends State<WebhozzInput> {
+
   double radiusBorder = 20;
 
   @override
@@ -28,51 +34,50 @@ class WebhozzInput extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        label,
+        widget.label,
         const SizedBox(height: 16,),
-        type == 'default' ?
+        widget.type == 'default' ?
         TextFormField(
-          controller: controller,
-          obscureText: obscureText,
-          validator: validator,
+          controller: widget.controller,
+          obscureText: widget.obscureText,
+          validator: widget.validator,
         ):
         TextFormField(
-          controller: controller,
-          obscureText: obscureText,
+          controller: widget.controller,
+          obscureText: widget.obscureText,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 10
-            ),
-            fillColor: const Color(0xffEFEFEF).withOpacity(0.1),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(radiusBorder)
+              contentPadding: const EdgeInsets.symmetric(
+                  vertical: 10,
+                  horizontal: 10
               ),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                  Radius.circular(radiusBorder)
+              fillColor: const Color(0xffEFEFEF).withOpacity(0.1),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                    Radius.circular(radiusBorder)
+                ),
               ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                  Radius.circular(radiusBorder)
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                    Radius.circular(radiusBorder)
+                ),
               ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                  Radius.circular(radiusBorder)
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                    Radius.circular(radiusBorder)
+                ),
               ),
-            ),
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            filled: true
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                    Radius.circular(radiusBorder)
+                ),
+              ),
+              prefixIcon: widget.prefixIcon,
+              suffixIcon: widget.suffixIcon,
+              filled: true
           ),
-          validator: validator,
+          validator: widget.validator,
         )
       ],
     );
   }
-
 }
